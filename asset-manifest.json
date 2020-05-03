@@ -1,25 +1,25 @@
 {
   "files": {
     "main.css": "/FaceApp/static/css/main.6469bc58.chunk.css",
-    "main.js": "/FaceApp/static/js/main.624a3b81.chunk.js",
-    "main.js.map": "/FaceApp/static/js/main.624a3b81.chunk.js.map",
+    "main.js": "/FaceApp/static/js/main.930aa8c6.chunk.js",
+    "main.js.map": "/FaceApp/static/js/main.930aa8c6.chunk.js.map",
     "runtime-main.js": "/FaceApp/static/js/runtime-main.994173f7.js",
     "runtime-main.js.map": "/FaceApp/static/js/runtime-main.994173f7.js.map",
     "static/css/2.66b7f74f.chunk.css": "/FaceApp/static/css/2.66b7f74f.chunk.css",
-    "static/js/2.38de229a.chunk.js": "/FaceApp/static/js/2.38de229a.chunk.js",
-    "static/js/2.38de229a.chunk.js.map": "/FaceApp/static/js/2.38de229a.chunk.js.map",
+    "static/js/2.dd50867f.chunk.js": "/FaceApp/static/js/2.dd50867f.chunk.js",
+    "static/js/2.dd50867f.chunk.js.map": "/FaceApp/static/js/2.dd50867f.chunk.js.map",
     "index.html": "/FaceApp/index.html",
-    "precache-manifest.cf19aac978eebb7fac4ad72ac2c5a9c6.js": "/FaceApp/precache-manifest.cf19aac978eebb7fac4ad72ac2c5a9c6.js",
+    "precache-manifest.6d4ecffdcbc6ad0421806e8803cc9e48.js": "/FaceApp/precache-manifest.6d4ecffdcbc6ad0421806e8803cc9e48.js",
     "service-worker.js": "/FaceApp/service-worker.js",
     "static/css/2.66b7f74f.chunk.css.map": "/FaceApp/static/css/2.66b7f74f.chunk.css.map",
     "static/css/main.6469bc58.chunk.css.map": "/FaceApp/static/css/main.6469bc58.chunk.css.map",
-    "static/js/2.38de229a.chunk.js.LICENSE.txt": "/FaceApp/static/js/2.38de229a.chunk.js.LICENSE.txt"
+    "static/js/2.dd50867f.chunk.js.LICENSE.txt": "/FaceApp/static/js/2.dd50867f.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.994173f7.js",
     "static/css/2.66b7f74f.chunk.css",
-    "static/js/2.38de229a.chunk.js",
+    "static/js/2.dd50867f.chunk.js",
     "static/css/main.6469bc58.chunk.css",
-    "static/js/main.624a3b81.chunk.js"
+    "static/js/main.930aa8c6.chunk.js"
   ]
 }
