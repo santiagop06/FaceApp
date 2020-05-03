@@ -3,16 +3,13 @@ import Navigation from "./components/Navigation.js"
 import Logo from "./components/Logo.js"
 import ImageLinkForm from "./components/ImageLinkForm.js"
 import Rank from "./components/Rank.js"
-import Clarifai from "clarifai";
 import FaceRecognition from "./components/FaceRecognition.js"
 import SignIn from "./components/SignIn.js"
 import Register from "./components/Register.js"
 import Particles from 'react-particles-js';
 import './App.css';
 
-const app = new Clarifai.App({
- apiKey: '73b420f0cf99458f8b408031745cea2a'
-});
+
 
 class App extends Component {
 	constructor(){
@@ -23,8 +20,16 @@ class App extends Component {
 			box:{},
 			route:"signIn",
 			isSingIn:false,
+			user:{
+				id:"",
+				name: "",
+				email: "",
+				password: "",
+				entries: 0,
+				joined: new Date()
+			}
 		}
-	}
+	}	
 
 	calculateFaceLocation = (data) =>{
 		const coord= data.outputs[0].data.regions[0].region_info.bounding_box;
@@ -45,15 +50,47 @@ class App extends Component {
 		console.log(box);
 	}
 
+	updateUser= (data)=>{
+		this.setState({
+			user:{
+				id:data.id,
+				name: data.name,
+				email: data.email,
+				password: data.password,
+				entries: data.entries,
+				joined: data.joined
+			}
+		})
+	}
+
 	onSubmit = (event) =>{
 		this.setState({url: this.state.input,
 			box:{}
 		})
 
-		app.models.predict(
-			Clarifai.FACE_DETECT_MODEL, this.state.input)
-		.then(response=> this.displayFace(this.calculateFaceLocation(response))).
-	    catch(err=> console.log(err))
+		fetch("http://face-smartapp.herokuapp.com/imageApi",{
+					"method": "post",
+					"headers": {"Content-Type":"application/json"},
+					"body": JSON.stringify({
+						"input": this.state.input
+					})
+				})
+		.then(response=>response.json())
+		.then(response=>{
+			fetch("http://face-smartapp.herokuapp.com /image",{
+					"method": "put",
+					"headers": {"Content-Type":"application/json"},
+					"body": JSON.stringify({
+						"id": this.state.user.id
+					})
+				}).then(response=> response.json())
+				.then(count=>{
+					this.setState(Object.assign(this.state.user, {entries:count}))
+				})
+			 
+			this.displayFace(this.calculateFaceLocation(response))
+		
+		}).catch(err=> console.log(err))
 
 	}
 
@@ -63,10 +100,13 @@ class App extends Component {
 
 	changeRoute = (route) => {
 		if(route==="home"){
+			console.log("set route to:", this.state.route );
 			this.setState({isSingIn:true});
-		}else{
+		}else {
 			this.setState({isSingIn:false});
+			this.setState({url:""})
 		}
+		console.log("before set route")
 		this.setState({route: route});
 	}
 
@@ -77,10 +117,13 @@ class App extends Component {
 	    	
 	    	<Particles className="particles"/>
 	    	<Navigation isSingIn={this.state.isSingIn} changeRoute={this.changeRoute} />
+	    	{console.log("load Navigation")}
+
 	    	{this.state.route==="home"?
 	    		<div>
+	    			{console.log("load home")}
 					<Logo/>
-					<Rank/>
+					<Rank name={this.state.user.name} entries={this.state.user.entries}/>
 					<ImageLinkForm 
 						OnInputChange={this.OnInputChange}
 						onSubmit={this.onSubmit}
@@ -89,9 +132,18 @@ class App extends Component {
 				</div>
 				:(
 					this.state.route==="signIn"?
-					<SignIn  changeRoute={this.changeRoute}/>
+					<div>
+	    			{console.log("load signIn")}
+
+					<SignIn updateUser={this.updateUser} changeRoute={this.changeRoute}/>
+					</div>
 					:
-					<Register changeRoute={this.changeRoute}/>
+					<div>
+	    			{console.log("load registe")}
+					
+					<Register changeRoute={this.changeRoute} updateUser={this.updateUser}/>
+					</div>
+
 				)	
 			}
 	    </div>
